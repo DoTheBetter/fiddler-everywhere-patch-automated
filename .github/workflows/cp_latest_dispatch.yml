@@ -391,19 +391,19 @@ jobs:
       
     steps:
       - name: Download Yukuhana-Patch
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: Yui-patch
           path: Yui-patch
 
       - name: Download msojocs-Server
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: msojocs-patch
           path: msojocs-patch
 
       - name: Download FE
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: fe_app
           path: fe_app
