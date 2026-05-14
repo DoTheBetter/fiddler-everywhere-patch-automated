@@ -70,7 +70,7 @@ jobs:
       is_valid: ${{ steps.get_validity.outputs.is_valid }}
       
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Validate Fiddler Version
         id: get_validity
@@ -209,7 +209,7 @@ jobs:
           }
       
       - name: Upload Yui folder as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Yui-patch
           path: Yui/
@@ -241,7 +241,7 @@ jobs:
         run: Get-ChildItem -Path msojocs\server
 
       - name: Upload msojocs folder as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: msojocs-patch
           path: msojocs/
@@ -279,7 +279,7 @@ jobs:
         run: 7z x "fe_extracted/`$PLUGINSDIR/app-64.7z" -ofe_app
         
       - name: Upload Fiddler Everywhere Extracted folder as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fe_app
           path: fe_app/
@@ -319,7 +319,7 @@ jobs:
         run: mv squashfs-root fe_app
         
       - name: Upload Fiddler Everywhere Extracted folder as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fe_app
           path: fe_app/
@@ -372,7 +372,7 @@ jobs:
         run: Get-ChildItem -Recurse
         
       - name: Upload Fiddler Everywhere Extracted folder as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fe_app
           path: fe_app/
@@ -395,19 +395,19 @@ jobs:
       
     steps:
       - name: Download Yukuhana-Patch
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: Yui-patch
           path: Yui-patch
 
       - name: Download msojocs-Server
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: msojocs-patch
           path: msojocs-patch
 
       - name: Download FE
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: fe_app
           path: fe_app
@@ -533,7 +533,7 @@ jobs:
           }
 
       - name: Upload Artifact for Patched FE
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "${{ steps.rename-fe.outputs.patched-fe-name }}"
           path: "${{ steps.rename-fe.outputs.patched-fe-name }}/"
