@@ -38,6 +38,14 @@ on:
         description: 'Fake registered provider (for fake FE account) ; Ex: Google'
         required: true
         default: 'Google'
+      patch-language:
+        description: 'Enable Chinese UI'
+        required: true
+        type: choice
+        default: 'No'
+        options:
+          - 'No'
+          - 'Yes (Ctrl+T to toggle)'
 
 defaults:
   run:
@@ -52,6 +60,7 @@ env:
   PATCH_USER_LNAME: ${{ github.event.inputs.patch-user-lastName }}
   PATCH_USER_COUNTRYCODE: ${{ github.event.inputs.patch-user-country-code }}
   PATCH_USER_PROVIDER: ${{ github.event.inputs.patch-user-provider }}
+  PATCH_LANGUAGE: ${{ github.event.inputs.patch-language }}
 
 jobs:
 
@@ -436,11 +445,24 @@ jobs:
         run: |
           $source_server_folder = "msojocs-patch/server/file"
           $destination_server_folder = "FE/resources/app/out"
-          
+
           if (Test-Path $source_server_folder) {
             Copy-Item -Path $source_server_folder -Destination $destination_server_folder -Recurse
           } else {
             Write-Host "Source Server Folder not found"
+          }
+
+      - name: Enable Chinese translation
+        if: startsWith(env.PATCH_LANGUAGE, 'Yes')
+        run: |
+          $translate_js = "msojocs-patch/server/translate.js"
+          $dest_translate = "FE/resources/app/out/translate.js"
+
+          if (Test-Path $translate_js) {
+            Copy-Item -Path $translate_js -Destination $dest_translate -Force
+            Write-Host "translate.js copied, Chinese language enabled (Ctrl+T to switch)"
+          } else {
+            Write-Host "translate.js not found in server directory"
           }
 
       - name: Set patch server port (in main.js of server)
